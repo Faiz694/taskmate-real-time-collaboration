@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: taskmate-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: alembic upgrade head && uvicorn app.main:socket_app --host 0.0.0.0 --port $PORT
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: SECRET_KEY
+        generateValue: true        # Render auto-generates a secure random value
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 60
+      - key: DATABASE_URL
+        sync: false                # You paste this in manually from Neon
+      - key: ALLOWED_ORIGINS
+        sync: false                # You paste your Netlify URL here
