@@ -8,7 +8,7 @@ export function getSocket() {
       ? localStorage.getItem('access_token')
       : null
 
-    socket = io(process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:8000', {
+    socket = io(process.env.NEXT_PUBLIC_SOCKET_URL || 'https://taskmate-real-time-collaboration.onrender.com', {
       auth: { token },
       transports: ['websocket'],
       autoConnect: false,
